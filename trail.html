@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./trailstyles.css" rel="stylesheet">
+    <title>Perk-Pal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+    <style>
+        /* Animation class to trigger movement */
+        .move {
+            transform: translateY(0); /* Move to its normal position */
+            opacity: 1; /* Fade in */
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="./trail logo.png" alt="Perk-Pal Logo" class="logo-image">
+        <ul>
+            <li>Services</li>
+            <li>About</li>
+            <li>Login</li>
+            <li>Sign up</li>
+        </ul>
+    </div>
+
+    <script>
+        // Wait for the page to load completely
+        window.addEventListener('load', function() {
+            // Add 'move' class to the logo container to trigger the animation
+            document.querySelector('.logo-container').classList.add('move');
+        });
+    </script>
+</body>
+</html>
