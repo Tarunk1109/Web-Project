@@ -219,10 +219,11 @@
         .form-container {
             margin: 50px;
             background: white;
-            padding: 50px;
+            padding: 40px;
+            
             border-radius: 12px;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-            max-width: 430px;
+            max-width: 390px;
             width: 100%;
             transition: background-color 0.3s ease;
             position: relative;
@@ -235,70 +236,27 @@
 
         .form-progress {
             width: 100%;
-            height: 12px;
-            background: #e0e0e0;
-            border-radius: 25px;
-            margin-bottom: 25px;
+            height: 5px;
+            background: #eee;
+            border-radius: 5px;
+            margin-bottom: 20px;
             overflow: hidden;
-            position: relative;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .form-progress-bar {
             height: 100%;
+            background: #007BFF;
             width: 0;
-            border-radius: 25px;
-            background: linear-gradient(45deg, #007BFF, #00c4cc);
-            background-size: 200% 100%;
-            position: relative;
-            transition: width 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            animation: stripeMove 3s linear infinite, pulse 1.5s ease-in-out infinite;
-            box-shadow: 0 0 15px rgba(0, 123, 255, 0.7);
-        }
-
-        @keyframes stripeMove {
-            0% { background-position: 0 0; }
-            100% { background-position: 200% 0; }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scaleY(1); }
-            50% { transform: scaleY(1.1); }
-        }
-
-        .form-progress-bar::after {
-            content: attr(data-progress) "%";
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
-            animation: bounceIn 0.5s ease-out forwards;
-            opacity: 0;
-        }
-
-        @keyframes bounceIn {
-            0% { opacity: 0; transform: translateY(-50%) scale(0.5); }
-            60% { opacity: 1; transform: translateY(-50%) scale(1.1); }
-            100% { opacity: 1; transform: translateY(-50%) scale(1); }
+            transition: width 0.3s ease;
         }
 
         .dark .form-progress {
             background: #4a6076;
         }
 
-        .dark .form-progress-bar {
-            box-shadow: 0 0 15px rgba(0, 196, 204, 0.7);
-        }
-
         label {
             font-weight: bold;
             color: #333;
-            position: relative;
-            display: block;
         }
 
         .dark label {
@@ -309,7 +267,7 @@
             width: 100%;
             max-width: 100%;
             padding: 10px;
-            margin: 12px 0px;
+            margin: 15px 0px;
             border: 1px solid #ccc;
             border-radius: 6px;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -327,36 +285,9 @@
             outline: none;
         }
 
-        .error {
-            position: absolute;
-            top: 50%;
-            right: 0;
-            transform: translateY(-50%);
-            color: #ff4d4d;
-            font-size: 12px;
-            font-weight: 500;
-            background: rgba(255, 77, 77, 0.1);
-            padding: 2px 8px;
-            border-radius: 4px;
-            opacity: 0;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            pointer-events: none;
-        }
-
-        .error.active {
-            opacity: 1;
-            transform: translateY(-50%) translateX(10px);
-        }
-
-        .dark .error {
-            color: #ff6666;
-            background: rgba(255, 102, 102, 0.2);
-        }
-
         button {
             width: 100%;
             padding: 12px;
-            margin-top: 10px;
             background: linear-gradient(45deg, #007BFF, #00c4cc);
             color: white;
             border: none;
@@ -369,6 +300,16 @@
         button:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            transition: color 0.3s ease;
+        }
+
+        .dark .error {
+            color: #e74c3c;
         }
 
         .site-footer {
@@ -577,37 +518,6 @@
             display: block;
             opacity: 1;
         }
-        .radio-group {
-            margin: 12px 0;
-            display: flex;
-            gap: 20px;
-        }
-
-        .radio-group label {
-            font-weight: normal;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: #333;
-        }
-
-        .dark .radio-group label {
-            color: #ecf0f1;
-        }
-
-        .student-number-container {
-            transition: opacity 0.3s ease;
-        }
-
-        .student-number-container.hidden {
-            display: none;
-            opacity: 0;
-        }
-
-        .student-number-container.visible {
-            display: block;
-            opacity: 1;
-        }
     </style>
 </head>
 <body>
@@ -642,48 +552,26 @@
     <main>
         <div class="form-container">
             <div class="form-progress">
-                <div class="form-progress-bar" data-progress="0"></div>
+                <div class="form-progress-bar"></div>
             </div>
-            <h2 style="text-align: center;">Register</h2>
+            <h2>Register</h2>
             <form class="userForm">
-                <label for="name">Name:<span class="error" id="nameError"></span></label>
+                <label for="name">Name:</label>
                 <input type="text" id="name" required>
+                <span class="error" id="nameError"></span>
 
-                <label for="dob">Date of Birth:<span class="error" id="dobError"></span></label>
+                <label for="dob">Date of Birth:</label>
                 <input type="date" id="dob" required>
+                <span class="error" id="dobError"></span>
 
-                <label for="gender">Gender:<span class="error" id="genderError"></span></label>
+                <label for="gender">Gender:</label>
                 <select id="gender" required>
                     <option value="">Select</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Other">Other</option>
                 </select>
-
-                <label for="ethnicity">Ethnicity:<span class="error" id="ethnicityError"></span></label>
-                <select id="ethnicity" required>
-                    <option value="">Select</option>
-                    <option value="African">African</option>
-                    <option value="Asian">Asian</option>
-                    <option value="Caucasian">Caucasian</option>
-                    <option value="Hispanic/Latino">Hispanic/Latino</option>
-                    <option value="Indegenious">Indegenious</option>
-                    <option value="Middle Eastern">Middle Eastern</option>
-                    <option value="South Asian">South Asian</option>
-                    <option value="Mixed">Mixed</option>
-                    <option value="Other">Other</option>
-                </select>
-
-                <label>Student?<span class="error" id="studentError"></span></label>
-                <div class="radio-group">
-                    <label><input type="radio" name="student" value="yes" id="studentYes"> Yes</label>
-                    <label><input type="radio" name="student" value="no" id="studentNo"> No</label>
-                </div>
-
-                <div class="student-number-container hidden">
-                    <label for="studentNumber">Student Number:<span class="error" id="studentNumberError"></span></label>
-                    <input type="text" id="studentNumber" placeholder="e.g., S123456">
-                </div>
+                <span class="error" id="genderError"></span>
 
                 <button type="submit">Submit</button>
             </form>
@@ -719,6 +607,7 @@
         </div>
 
         <div class="footer-bottom">
+            <p><input type="checkbox" id="stickyFooter" onchange="toggleStickyFooter()"> Sticky Footer</p>
             <p>© 2025 Perk-Pal. All Rights Reserved.</p>
         </div>
     </footer>
@@ -727,79 +616,35 @@
     <button class="back-to-top" onclick="scrollToTop()">↑</button>
 
     <script>
+        // Form submission and real-time validation with progress
         const form = document.querySelector('.userForm');
         const nameInput = document.getElementById('name');
         const dobInput = document.getElementById('dob');
         const genderSelect = document.getElementById('gender');
-        const ethnicitySelect = document.getElementById('ethnicity');
-        const studentYes = document.getElementById('studentYes');
-        const studentNo = document.getElementById('studentNo');
-        const studentNumberInput = document.getElementById('studentNumber');
-        const studentNumberContainer = document.querySelector('.student-number-container');
         const progressBar = document.querySelector('.form-progress-bar');
-        const requiredInputs = [nameInput, dobInput, genderSelect, ethnicitySelect]; // Base required fields
-
-        window.addEventListener('load', function() {
-            document.querySelector('.logo-container').classList.add('move');
-            resetProgress();
-            updateProgress(); // Initialize progress bar
-        });
+        const inputs = [nameInput, dobInput, genderSelect];
 
         form.addEventListener('submit', function(event) {
             event.preventDefault();
-            if (validateForm(true)) {
-                resetProgress();
-                form.reset(); // Reset form fields on successful submission
-                studentNumberContainer.classList.remove('visible');
-                studentNumberContainer.classList.add('hidden');
-            }
+            validateForm(true);
         });
 
-        requiredInputs.forEach(input => {
+        inputs.forEach(input => {
             input.addEventListener('input', () => {
                 validateField(input, input.id + 'Error', `${input.previousElementSibling.textContent.slice(0, -1)} is required`);
                 updateProgress();
             });
-            input.addEventListener('change', updateProgress);
-        });
-
-        studentNumberInput.addEventListener('input', () => {
-            if (studentYes.checked) {
-                validateField(studentNumberInput, 'studentNumberError', 'Student number is required');
-            }
-            updateProgress();
-        });
-
-        studentYes.addEventListener('change', () => {
-            studentNumberContainer.classList.remove('hidden');
-            studentNumberContainer.classList.add('visible');
-            studentNumberInput.setAttribute('required', 'true');
-            updateProgress();
-        });
-
-        studentNo.addEventListener('change', () => {
-            studentNumberContainer.classList.remove('visible');
-            studentNumberContainer.classList.add('hidden');
-            studentNumberInput.removeAttribute('required');
-            studentNumberInput.value = '';
-            document.getElementById('studentNumberError').textContent = '';
-            updateProgress();
-        });
-
-        [studentYes, studentNo].forEach(radio => {
-            radio.addEventListener('change', updateProgress);
+            input.addEventListener('change', () => updateProgress());
         });
 
         function validateField(input, errorId, message) {
             const value = input.value.trim();
             const errorElement = document.getElementById(errorId);
-            if (value === '' && input.hasAttribute('required')) {
+            if (value === '') {
                 errorElement.textContent = message;
-                errorElement.classList.add('active');
                 return false;
             } else {
                 errorElement.textContent = '';
-                errorElement.classList.remove('active');
                 return true;
             }
         }
@@ -808,66 +653,103 @@
             const nameValid = validateField(nameInput, 'nameError', 'Name is required');
             const dobValid = validateField(dobInput, 'dobError', 'Date of Birth is required');
             const genderValid = validateField(genderSelect, 'genderError', 'Please select a gender');
-            const ethnicityValid = validateField(ethnicitySelect, 'ethnicityError', 'Please select an ethnicity');
-            const studentSelected = studentYes.checked || studentNo.checked;
-            const studentNumberValid = !studentYes.checked || validateField(studentNumberInput, 'studentNumberError', 'Student number is required');
 
-            if (!studentSelected) {
-                document.getElementById('studentError').textContent = 'Please select Yes or No';
-                document.getElementById('studentError').classList.add('active');
-            } else {
-                document.getElementById('studentError').textContent = '';
-                document.getElementById('studentError').classList.remove('active');
-            }
-
-            if (nameValid && dobValid && genderValid && ethnicityValid && studentSelected && studentNumberValid && showAlert) {
+            if (nameValid && dobValid && genderValid && showAlert) {
                 alert(`Thank you for registering, ${nameInput.value.trim()}!`);
             }
-            return nameValid && dobValid && genderValid && ethnicityValid && studentSelected && studentNumberValid;
+            return nameValid && dobValid && genderValid;
         }
 
         function updateProgress() {
-            // Total required fields: Name, DOB, Gender, Ethnicity (4) + Student status (1) + Student Number if "Yes" (1)
-            let totalFields = 5; // Base fields: Name, DOB, Gender, Ethnicity, Student Yes/No
-            if (studentYes.checked) totalFields = 6; // Add Student Number when "Yes" is selected
-
-            let filledFields = 0;
-            requiredInputs.forEach(input => {
-                if (input.value.trim() !== '') filledFields++;
-            });
-
-            // Count Student radio selection as one field
-            if (studentYes.checked || studentNo.checked) filledFields++;
-
-            // Count Student Number only if "Yes" is selected and filled
-            if (studentYes.checked && studentNumberInput.value.trim() !== '') filledFields++;
-
-            const progress = Math.min((filledFields / totalFields) * 100, 100); // Cap at 100%
+            const totalFields = inputs.length;
+            const filledFields = inputs.filter(input => input.value.trim() !== '').length;
+            const progress = (filledFields / totalFields) * 100;
             progressBar.style.width = `${progress}%`;
-            progressBar.setAttribute('data-progress', Math.round(progress));
         }
 
-        function resetProgress() {
-            progressBar.style.width = '0%';
-            progressBar.setAttribute('data-progress', '0');
-        }
+        // Logo animation on load
+        window.addEventListener('load', function() {
+            document.querySelector('.logo-container').classList.add('move');
+        });
 
+        // Dropdown hover with timeout and active state
+        const navItems = document.querySelectorAll('.nav-list > li');
+        let timeoutId;
+
+        navItems.forEach(item => {
+            const link = item.querySelector('a');
+            const dropdown = item.querySelector('.dropdown');
+
+            if (dropdown) {
+                item.addEventListener('mouseenter', () => {
+                    clearTimeout(timeoutId);
+                    link.classList.add('active');
+                    dropdown.style.display = 'block';
+                    setTimeout(() => {
+                        dropdown.style.opacity = '1';
+                        dropdown.style.transform = 'translateY(0) scale(1)';
+                    }, 10);
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    link.classList.remove('active');
+                    timeoutId = setTimeout(() => {
+                        dropdown.style.opacity = '0';
+                        dropdown.style.transform = 'translateY(-10px) scale(0.95)';
+                        setTimeout(() => {
+                            dropdown.style.display = 'none';
+                        }, 200);
+                    }, 300);
+                });
+
+                dropdown.addEventListener('mouseenter', () => {
+                    clearTimeout(timeoutId);
+                });
+
+                dropdown.addEventListener('mouseleave', () => {
+                    link.classList.remove('active');
+                    timeoutId = setTimeout(() => {
+                        dropdown.style.opacity = '0';
+                        dropdown.style.transform = 'translateY(-10px) scale(0.95)';
+                        setTimeout(() => {
+                            dropdown.style.display = 'none';
+                        }, 200);
+                    }, 300);
+                });
+            }
+        });
+
+        // Theme toggle
         function toggleTheme() {
             document.body.classList.toggle('dark');
+            document.querySelector('.logo-container').classList.toggle('dark');
+            document.querySelector('.form-container').classList.toggle('dark');
+            document.querySelector('.site-footer').classList.toggle('dark');
         }
 
+        // Sticky footer toggle
+        function toggleStickyFooter() {
+            const footer = document.querySelector('.site-footer');
+            footer.classList.toggle('sticky');
+            updateBackToTop();
+        }
+
+        // Back to top
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        window.addEventListener('scroll', () => {
+        function updateBackToTop() {
             const backToTop = document.querySelector('.back-to-top');
-            if (window.scrollY > 300) {
-                backToTop.classList.add('show');
-            } else {
-                backToTop.classList.remove('show');
-            }
-        });
+            const scrollPosition = window.scrollY;
+            const footer = document.querySelector('.site-footer');
+            backToTop.classList.toggle('show', scrollPosition > 100 && !footer.classList.contains('sticky'));
+        }
+
+        window.addEventListener('scroll', updateBackToTop);
+        window.addEventListener('load', updateBackToTop);
     </script>
+    
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 </body>
 </html>
